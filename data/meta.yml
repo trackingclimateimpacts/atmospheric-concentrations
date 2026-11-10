@@ -1,0 +1,117 @@
+indicator:
+  name: Atmospheric Concentrations of Greenhouse Gases
+  slug: atmospheric-concentrations
+  publisher: U.S. Environmental Protection Agency
+  source_page: https://19january2025snapshot.epa.gov/climate-indicators/climate-change-indicators-atmospheric-concentrations-greenhouse-gases/index.html
+  technical_documentation: https://19january2025snapshot.epa.gov/system/files/documents/2024-06/ghg-concentrations_documentation.pdf
+  rights: Public domain, work of the U.S. Government (17 U.S.C. 105)
+datasets:
+- file: co2_concentrations.csv
+  figure: Figure 1
+  figure_title: Figure 1. Global Atmospheric Concentrations of Carbon Dioxide Over
+    Time
+  source_file: ghg-concentrations_fig-1.csv
+  source_sha256: 835ba64ddc78e881de55bcd550a4a8c5e29c9f1dcce9d0ec0e5f205a2e0c6843
+  source_encoding: UTF-8
+  data_source: Compilation of 8 underlying datasets
+  web_update: June 2024
+  unit: parts per million (ppm) of CO2
+  rows: 2168
+  columns:
+  - name: year_ce
+    type: number
+    description: Calendar year as a decimal, from ice core ages and monitoring-site
+      sample dates. Negative values are years BC.
+  - name: series
+    type: string
+    description: Ice core study or monitoring site that supplied the measurement.
+  - name: value
+    type: number
+    description: Measured atmospheric concentration, in parts per million (ppm) of
+      CO2.
+- file: methane_concentrations.csv
+  figure: Figure 2
+  figure_title: Figure 2. Global Atmospheric Concentrations of Methane Over Time
+  source_file: ghg-concentrations_fig-2.csv
+  source_sha256: 7fba7c2e481298187f5b8783958bd7270356065ae18b425b05cf43af11f13ee1
+  source_encoding: UTF-8
+  data_source: Compilation of five underlying datasets
+  web_update: June 2024
+  unit: parts per billion (ppb) of methane
+  rows: 2264
+  columns:
+  - name: year_ce
+    type: number
+    description: Calendar year as a decimal, from ice core ages and monitoring-site
+      sample dates. Negative values are years BC.
+  - name: series
+    type: string
+    description: Ice core study or monitoring site that supplied the measurement.
+  - name: value
+    type: number
+    description: Measured atmospheric concentration, in parts per billion (ppb) of
+      methane.
+- file: nitrous_oxide_concentrations.csv
+  figure: Figure 3
+  figure_title: Figure 3. Global Atmospheric Concentrations of Nitrous Oxide Over
+    Time
+  source_file: ghg-concentrations_fig-3.csv
+  source_sha256: 2454d9c6f016527f0971b6743301f12a8f2c85a5e054ac615af9ec70be1b21c4
+  source_encoding: UTF-8
+  data_source: Compilation of six underlying datasets
+  web_update: June 2024
+  unit: parts per billion (ppb) of nitrous oxide
+  rows: 1043
+  columns:
+  - name: year_ce
+    type: number
+    description: Calendar year as a decimal, from ice core ages and monitoring-site
+      sample dates. Negative values are years BC.
+  - name: series
+    type: string
+    description: Ice core study or monitoring site that supplied the measurement.
+  - name: value
+    type: number
+    description: Measured atmospheric concentration, in parts per billion (ppb) of
+      nitrous oxide.
+- file: halogenated_gases_concentrations.csv
+  figure: Figure 4
+  figure_title: Figure 4. Global Atmospheric Concentrations of Selected Halogenated
+    Gases, 1978-2022
+  source_file: ghg-concentrations_fig-4.csv
+  source_sha256: 06266f674ecf0ab2f8cf18d73929ffb9102d71a2caa38f82f8f50b83debc092a
+  source_encoding: UTF-8
+  data_source: AGAGE, 2022; NOAA, 2023; Rigby, 2017.
+  web_update: June 2024
+  unit: parts per trillion (ppt)
+  rows: 4948
+  columns:
+  - name: year_decimal
+    type: number
+    description: Decimal year of the measurement, for example 1978.04.
+  - name: series
+    type: string
+    description: Halogenated gas, named as EPA labels it (for example HCFC-22).
+  - name: value
+    type: number
+    description: Measured atmospheric concentration, in parts per trillion (ppt).
+- file: ozone_concentrations.csv
+  figure: Figure 5
+  figure_title: Figure 5. Global Atmospheric Concentrations of Ozone, 1979-2020
+  source_file: ghg-concentrations_fig-5.csv
+  source_sha256: 28caa364275f3dfa55b4a8e40e058bdc800ffb96ed53f568a3e18daeff670a9f
+  source_encoding: UTF-8
+  data_source: NASA, 2013, 2021, 2022
+  web_update: July 2022
+  unit: Dobson units
+  rows: 120
+  columns:
+  - name: year
+    type: integer
+    description: Calendar year.
+  - name: series
+    type: string
+    description: 'Layer of the atmosphere: total column, troposphere or stratosphere.'
+  - name: value
+    type: number
+    description: Measured atmospheric concentration, in Dobson units.
