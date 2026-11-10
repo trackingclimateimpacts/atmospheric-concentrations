@@ -32,9 +32,11 @@ archived at `data-raw/source-page.html`.
 Code and the derived data schema are licensed CC-BY-SA.
 
 This is an independent project. It is **not** affiliated with, endorsed by, or
-approved by the U.S. Environmental Protection Agency or Compilation of 8 underlying datasets (the
-underlying data source agency).
+approved by the U.S. Environmental Protection Agency or the agencies that
+produced the underlying data.
 
-<!-- TODO: if this rebuild departs from EPA's published presentation in any way,
-     name the departure here and document it in data-raw/PROVENANCE.md. Delete
-     this comment once resolved either way. -->
+The tidy files in `data/` reshape EPA's wide figure downloads into long format.
+Blank cells, one fully blank row and the "Ice core measurements" divider row in
+Figures 1 and 2 are dropped, the word `null` in Figure 5 is treated as a blank,
+and the thousands separator in values such as `1,872.04` is removed. No digit of
+any value is changed.

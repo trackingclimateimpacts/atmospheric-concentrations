@@ -33,9 +33,7 @@ byte-identical output.
 `narrative.qmd` and `data-raw/` were generated once by the `build-indicator`
 skill from EPA's published page, archived here as `data-raw/source-page.html`.
 
-<!-- TODO: if any figure here is NOT on EPA's published indicator page, add a
-     section saying so plainly and pointing at data-raw/PROVENANCE.md. Delete
-     this comment once resolved either way. -->
+All five figures appear on EPA's published indicator page.
 
 ## Rights
 

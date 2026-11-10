@@ -54,10 +54,22 @@ must produce byte-identical output.
 `data-raw/*.csv`, EPA's published per-figure downloads, go to `R/build_data.R`,
 which writes the tidy CSVs and `data/meta.yml`.
 
-TODO: list each figure this build produces, one bullet each, naming the output
-file, the series it carries, its coverage, its units, and whether it appears on
-EPA's published indicator page. Any figure that does not appear there must say
-so here and in `data-raw/PROVENANCE.md`.
+Every figure below appears on EPA's published indicator page. Each output is
+long format: a time column, `series`, `value`, one row per populated source cell.
+
+- `co2_concentrations.csv` (Figure 1): eight ice core and monitoring-site series,
+  roughly 800,000 BC to 2023, parts per million of CO2. `year_ce` is a decimal
+  calendar year, negative for BC.
+- `methane_concentrations.csv` (Figure 2): five series, roughly 800,000 BC to
+  2023, parts per billion of methane. Two readings are published as `0`
+  (1983 Mauna Loa, 1984 Cape Grim) and are kept as published.
+- `nitrous_oxide_concentrations.csv` (Figure 3): five series, roughly 800,000 BC
+  to 2023, parts per billion of nitrous oxide. EPA's file also has an
+  `Antarctica (Battle et al.)` column with no values in it, so it yields no rows.
+- `halogenated_gases_concentrations.csv` (Figure 4): 13 gases, 1978 to 2022,
+  parts per trillion. `year_decimal` is the monthly time step.
+- `ozone_concentrations.csv` (Figure 5): total column, troposphere and
+  stratosphere, 1979 to 2020, Dobson units. 1994 to 1996 carry only the total.
 
 `data/meta.yml` is generated, never hand-edited. It is assembled inside
 `R/build_data.R` from each source file's own five-line preamble, so figure

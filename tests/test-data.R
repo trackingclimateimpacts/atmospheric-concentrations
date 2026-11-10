@@ -57,12 +57,52 @@ for (f in list.files("data", pattern = "[.](csv|yml)$", full.names = TRUE)) {
 }
 
 cat("\nValue snapshots\n")
-# TODO value snapshots: pin the actual numbers for each output file, so a
-# legitimate data update fails here and says exactly what changed. For each
-# dataset check at least: row count, the first and last row in source order,
-# and the minimum and maximum of each value column. Compare as strings where
-# the source precision matters. See the source CSV in data-raw/ for the values.
-check("value snapshots have been written", FALSE)
+# Pinned as strings so source precision is checked, not just magnitude. Each
+# entry: row count, first and last row in source order, the smallest and largest
+# value, and how many series carry data.
+snap <- list(
+  "co2_concentrations.csv" = list(
+    rows = 2168L, first = c("-803718.8684", "Antarctic Ice Cores", "207.2854401"),
+    last = c("2023", "Cape Grim", "416.378"), min = "173.7136201", max = "421.987", series = 8L),
+  "methane_concentrations.csv" = list(
+    rows = 2264L, first = c("-797446.1", "EPICA Dome C, Antarctica", "399.3"),
+    last = c("2023", "Cape Grim, Australia", "1872.04"), min = "0", max = "1929.05", series = 5L),
+  "nitrous_oxide_concentrations.csv" = list(
+    rows = 1043L, first = c("-796475", "EPICA Dome C, Antarctica", "254"),
+    last = c("2023", "Barrow, Alaska", "336.9958333"), min = "185.5", max = "336.9958333", series = 5L),
+  "halogenated_gases_concentrations.csv" = list(
+    rows = 4948L, first = c("1978.04", "CFC-12", "264.3"),
+    last = c("2022.916667", "Halon-1211", "2.901962733"), min = "0.00475", max = "544.642", series = 13L),
+  "ozone_concentrations.csv" = list(
+    rows = 120L, first = c("1979", "Total column: SBUV", "288.5425341"),
+    last = c("2020", "Stratosphere", "242.178"), min = "27.892", max = "288.5425341", series = 3L)
+)
+
+for (f in names(snap)) {
+  df <- rd(f)
+  v  <- as.numeric(df$value)
+  s  <- snap[[f]]
+  check(sprintf("%s: %d rows", f, s$rows), nrow(df) == s$rows)
+  check(sprintf("%s: first row is %s", f, paste(s$first, collapse = " | ")),
+        identical(unname(unlist(df[1L, ])), s$first))
+  check(sprintf("%s: last row is %s", f, paste(s$last, collapse = " | ")),
+        identical(unname(unlist(df[nrow(df), ])), s$last))
+  check(sprintf("%s: minimum value is %s", f, s$min), identical(df$value[which.min(v)], s$min))
+  check(sprintf("%s: maximum value is %s", f, s$max), identical(df$value[which.max(v)], s$max))
+  check(sprintf("%s: %d series carry data", f, s$series), length(unique(df$series)) == s$series)
+  check(sprintf("%s: every value parses as a number", f), !anyNA(v))
+}
+
+# EPA's Figure 3 file has a column for Battle et al. with no values in it, so it
+# produces no rows; Figure 2 publishes two zero methane readings; and Figure 5
+# has only the total column for 1994 to 1996.
+check("nitrous oxide: the empty Battle et al. column produced no rows",
+      !"Antarctica (Battle et al.)" %in% rd("nitrous_oxide_concentrations.csv")$series)
+check("methane: EPA's two published zero readings are preserved as published",
+      sum(rd("methane_concentrations.csv")$value == "0") == 2L)
+oz <- rd("ozone_concentrations.csv")
+check("ozone: 1994 to 1996 carry only the total column",
+      identical(unique(oz$series[oz$year %in% c("1994", "1995", "1996")]), "Total column: SBUV"))
 
 cat("\n")
 if (length(failures)) {
